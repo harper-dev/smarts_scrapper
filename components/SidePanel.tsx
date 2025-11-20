@@ -112,7 +112,7 @@ export const SidePanel: React.FC<SidePanelProps> = ({
       </div>
 
       {/* Fields List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
+      <div className="flex-1 overflow-y-auto p-4 space-y-6 pb-32">
         {fields.length === 0 ? (
           <div className="text-center py-10 opacity-50">
             <div className="text-4xl mb-2">👆</div>
@@ -126,11 +126,33 @@ export const SidePanel: React.FC<SidePanelProps> = ({
             </div>
            
             {fields.map((field) => (
-              <div key={field.id} className="bg-white rounded-lg border border-slate-200 shadow-sm p-3 group">
+              <div key={field.id} className="bg-white rounded-lg border border-slate-200 shadow-sm p-3 group relative hover:border-brand-400 hover:shadow-md hover:z-10 transition-all">
+                
+                {/* Tooltip Start */}
+                <div className="absolute left-0 top-full mt-2 w-full bg-slate-900/95 backdrop-blur text-white text-xs rounded p-3 shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+                   <div className="flex items-center justify-between mb-2">
+                      <span className="text-slate-400 font-medium">Type</span>
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold tracking-wide ${
+                          field.type === FieldType.TEXT ? 'bg-blue-500/20 text-blue-200' :
+                          field.type === FieldType.LINK ? 'bg-green-500/20 text-green-200' :
+                          'bg-purple-500/20 text-purple-200'
+                      }`}>{field.type}</span>
+                   </div>
+                   <div className="space-y-1">
+                      <span className="text-slate-400 font-medium block">Selector</span>
+                      <code className="font-mono text-[10px] break-all text-slate-300 block bg-slate-800/50 p-1 rounded">
+                        {field.selector}
+                      </code>
+                   </div>
+                   {/* Arrow */}
+                   <div className="absolute bottom-full left-6 border-[6px] border-transparent border-b-slate-900/95"></div>
+                </div>
+                {/* Tooltip End */}
+
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <h3 className="font-semibold text-sm text-slate-700">{field.name}</h3>
-                    <p className="text-xs text-slate-400 font-mono truncate max-w-[150px]">{field.selector}</p>
+                    <p className="text-xs text-slate-400 font-mono truncate max-w-[150px] cursor-help">{field.selector}</p>
                   </div>
                   <button 
                     onClick={() => onRemoveField(field.id)}
