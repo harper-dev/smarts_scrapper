@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Smart Scraper AI Extension",
+  "description": "A React-based prototype for a Chrome Extension that uses DOM analysis and Gemini AI to scrape, structure, and clean unstructured web data.",
+  "requestFramePermissions": []
+}
